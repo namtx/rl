@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require_relative "../rl"
+require "tty-prompt"
+
+$container = Container.new
+$container.register(:api_client, Rl::Client)
+prompt = TTY::Prompt.new
+
+configuration = Rl::Configuration.new
+configuration.user_name = ENV["GITHUB_USER"]
+configuration.repo_name = ENV["GITHUB_REPO_NAME"]
+configuration.access_token = ENV["GITHUB_ACCESS_TOKEN"]
+
+$container.register :configuration, configuration
+
+puts Rl::API::Card.done
+
